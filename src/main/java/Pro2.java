@@ -2,7 +2,7 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class Pro2 {
     static Object object = new Object();
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Thread threadA = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -11,7 +11,7 @@ public class Pro2 {
                     synchronized (object){
                         System.out.println("threadA 持有obj对象");
                         object.wait();
-                        Thread.sleep(1000);
+                        Thread.sleep(10000);
                     }
                 }
                 catch (InterruptedException e) {
@@ -21,5 +21,9 @@ public class Pro2 {
         });
         threadA.start();
         threadA.interrupt();
+        while (true){
+            Thread.sleep(1000);
+            System.out.println("1");
+        }
     }
 }
