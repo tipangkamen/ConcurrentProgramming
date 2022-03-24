@@ -3,10 +3,10 @@ import java.util.concurrent.locks.LockSupport;
 
 public class LockSupportTest {
     /*
-    *
-    * LockSupport 的unpark可以先执行，之后再调用一次park也不会停止，但是如果调用多次就会停止 ,它应该是维护了一个park的数量
-    *
-    * */
+     *
+     * LockSupport 的unpark可以先执行，之后再调用一次park也不会停止，但是如果调用多次就会停止 ,它应该是维护了一个park的数量
+     *
+     * */
     public static void main(String[] args) {
         Thread thread = new Thread(() -> {
             for (int i = 0; i < 10; i++) {
@@ -16,11 +16,10 @@ public class LockSupportTest {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (i==5){
+                if (i == 5) {
                     LockSupport.park();
                     LockSupport.park();
                     LockSupport.park();
-
                 }
             }
         });
