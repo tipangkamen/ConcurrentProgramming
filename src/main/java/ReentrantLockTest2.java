@@ -1,30 +1,16 @@
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ReentrantLockTest2 {
-    private ReentrantLock reentrantLock=new ReentrantLock();
+    private final ReentrantLock reentrantLock=new ReentrantLock();
     public static void main(String[] args) throws InterruptedException {
 
         ReentrantLockTest2 lockTest = new ReentrantLockTest2();
 
-        Thread t0 = new Thread(
-                new Runnable() {
-                    public void run() {
-                        lockTest.doBussiness();
-                    }
-                }
-        );
+        Thread t0 = new Thread(lockTest::doBussiness);
 
-        Thread t1 = new Thread(
-                new Runnable() {
-                    public void run() {
-                        lockTest.doBussiness();
-                    }
-                }
-        );
+        Thread t1 = new Thread(lockTest::doBussiness);
 
         // 启动线程t1
         t0.start();
