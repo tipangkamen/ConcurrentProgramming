@@ -26,7 +26,7 @@ public class SynchronizedListTest {
         SynchronizedList<Integer> synchronizedList = new SynchronizedList();
         final Object lock = new Object();
         /*
-         *   之所以t1唤醒t2之后要自己wait是因为notify方法不会释放锁，因此t1还是拿到锁的，t2被唤醒之后，还是无法执行
+         *   之所以t1唤醒t2之后要自己wait是因为notify方法不会立刻释放锁，而是要等t1执行完了才会释放锁，因此t1还是拿到锁的，t2被唤醒之后，还是无法执行
          *
          * */
         Thread t2 = new Thread(() -> {
