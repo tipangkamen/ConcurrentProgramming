@@ -1,5 +1,4 @@
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -8,7 +7,7 @@ import java.util.concurrent.locks.LockSupport;
 
 class SynchronizedList<T> {
 
-    private ArrayList<T> arrayList = new ArrayList();
+    private final ArrayList<T> arrayList = new ArrayList();
 
     public void add(T t) {
         arrayList.add(t);
@@ -20,6 +19,10 @@ class SynchronizedList<T> {
 
 }
 
+/*
+* 实现一个容器，提供一两个方法 ，add，size
+ *   写两个线程，线程1添加10个元素到容器中，线程2实现监控元素的个数，当个数到5个时，线程2给出提示并结束
+* */
 
 public class SynchronizedListTest {
     public static void main(String[] args) {
