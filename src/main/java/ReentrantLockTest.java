@@ -13,6 +13,7 @@ public class ReentrantLockTest {
         boolean b = false;
         try {
             b = reentrantLock.tryLock();
+            System.out.println(b);
             for (int i = 0; i < 5; i++) {
                 System.out.println(i);
                 Thread.sleep(1000);
