@@ -3,24 +3,27 @@
 title ReentranLock 加锁
 
 box "ReentrantLock" #LightBlue
-participant "lock()" as RLock
+    participant "lock()" as RLock
 end box
 
 box "Sync类" #LightGreen
-participant "lock()" as SLock
+    participant "lock()" as SLock
 end box
 
 box "NonfairSync" #LightPink
-participant "lock()" as NFLock
-participant "tryAcquire()" as NfTAc
+    participant "lock()" as NFLock
+    participant "tryAcquire()" as NFTAc
+    participant "nonfairTryAcquire()" as NFNFTAc
 end box
 
 box "AQS"  #LightYellow
-participant "acquire()" as AQSAc
+    participant "acquire()" as AQSAc
+    participant "tryAcquire()" as AQStAc
+    participant "acquireQueued()" as AQSacQu
 end box
 
 box "AbstractOwnableSynchronizer"  #Orange
-participant setExclusiveOwnerThread as setEx
+    participant setExclusiveOwnerThread as setEx
 end box
 
 
@@ -29,20 +32,26 @@ end box
 RLock -> SLock:  加锁
 
 group 第一次加锁
-SLock --> NFLock: 先判断CAS,成功\n则设置独占者线程
-NFLock -> setEx: 将当前线程设置为独占者线程,\n以避免第一次进来就加锁，\n向OS申请资源
+    SLock --> NFLock: 先判断CAS,成功\n则设置独占者线程
+    NFLock -> setEx: 将当前线程设置为独占者线程,\n以避免第一次进来就加锁，\n向OS申请资源
 end
 
 group 第二次加锁
-    group 独占者线程继续加锁
+
     SLock --> NFLock: CAS返回false
-    NFLock -> AQSAc
-    AQSAc -> NfTAc:
+    NFLock -> AQSAc:
+    group acquire做的事
+    AQSAc  -> AQStAc: 拿锁(我把它称为锁，其实不是锁)
+    AQStAc -> NFTAc: AQS自己的tryAcquire()只是throw了\nUnsupportedOperationException,这是模板方法
+    NFTAc  -> NFNFTAc: 调用
+    NFNFTAc ->NFNFTAc:
+        alt true
+        AQStAc -> AQSAc: 成功加锁
+        else false
+        AQSAc -> AQSacQu: 如果没拿到锁会将当前线程放入等待队列中
     end
-    group 其他线程加锁
-    SLock --> NFLock: 先判断CAS,成功\n则设置独占者线程
-    NFLock -> setEx: 将当前线程设置为独占者线程,\n以避免第一次进来就加锁，\n向OS申请资源
-    end
+
+
 
 end
 @enduml

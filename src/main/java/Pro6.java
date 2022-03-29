@@ -1,5 +1,5 @@
 public class Pro6 {
-    private   String str="a";
+    private String str = "a";
 
     public void lock() {
         System.out.println("进来了");
@@ -25,11 +25,10 @@ public class Pro6 {
     }
 
 
-
 }
 
-class strSync{
-    private   String str2= new String("a");
+class strSync {
+    private String str2 = new String("a");
 
     public void lock() {
         System.out.println("进来了2");
