@@ -17,6 +17,7 @@ box "NonfairSync" #LightPink
 end box
 
 box "AQS"  #LightYellow
+    participant "compareAndSetState()" as CAS
     participant "acquire()" as AQSAc
     participant "tryAcquire()" as AQStAc
     participant "acquireQueued()" as AQSacQu
@@ -26,32 +27,33 @@ box "AbstractOwnableSynchronizer"  #Orange
     participant setExclusiveOwnerThread as setEx
 end box
 
-
-
-
-RLock -> SLock:  加锁
-
+RLock -> SLock:  调用
+SLock --> NFLock: 调用,Sync的lock方法是抽象方法,\n实现这个方法的有\nFairSync和NonFairSync
+NFLock -> CAS:调用native方法cas判断
 group 第一次加锁
-    SLock --> NFLock: 先判断CAS,成功\n则设置独占者线程
-    NFLock -> setEx: 将当前线程设置为独占者线程,\n以避免第一次进来就加锁，\n向OS申请资源
+CAS --> NFLock: CAS返回true
+NFLock -> setEx: 将当前线程设置为独占者线程,以避免第一次进来就加锁，向OS申请资源
 end
 
 group 第二次加锁
+CAS --> NFLock: CAS返回false,即使是第一次加锁的线程也会返回false
+NFLock -> AQSAc: 调用
+AQSAc  -> AQStAc: 拿锁(我把它称为锁，其实不是锁)
+AQStAc -> NFTAc: AQS自己的tryAcquire()只是throw了UnsupportedOperationException,这是模板模式
+NFTAc  -> NFNFTAc: 调用
+note right
+nonfairTryAcquire()
+end note
+NFNFTAc -> NFTAc:返回Boolean
+NFTAc -> AQStAc : 返回Boolean
 
-    SLock --> NFLock: CAS返回false
-    NFLock -> AQSAc:
-    group acquire做的事
-    AQSAc  -> AQStAc: 拿锁(我把它称为锁，其实不是锁)
-    AQStAc -> NFTAc: AQS自己的tryAcquire()只是throw了\nUnsupportedOperationException,这是模板方法
-    NFTAc  -> NFNFTAc: 调用
-    NFNFTAc ->NFNFTAc:
-        alt true
-        AQStAc -> AQSAc: 成功加锁
-        else false
-        AQSAc -> AQSacQu: 如果没拿到锁会将当前线程放入等待队列中
-    end
-
-
-
+alt true
+AQStAc -> AQStAc: 返回true,成功加锁,over
+else false
+AQStAc -> AQSacQu: 返回flase，没拿到锁会将当前线程放入等待队列中
 end
+end
+
+
+
 @enduml
