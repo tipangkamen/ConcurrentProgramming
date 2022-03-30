@@ -9,5 +9,6 @@ public class ReentrantLockRead {
         reentrantLock.lock();
         reentrantLock.lock();
 
+
     }
 }
