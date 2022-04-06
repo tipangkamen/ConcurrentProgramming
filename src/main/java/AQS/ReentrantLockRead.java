@@ -21,5 +21,6 @@ public class ReentrantLockRead {
 
 
 
+        new Thread(()->reentrantLock.lock()).start();
     }
 }

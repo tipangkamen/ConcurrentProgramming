@@ -38,7 +38,7 @@ end
 group 第二次加锁
 CAS --> NFLock: CAS返回false,即使是第一次加锁的线程也会返回false
 NFLock -> AQSAc: 调用
-AQSAc  -> AQStAc: 拿锁(我把它称为锁，其实不是锁)
+AQSAc  -> AQStAc: 拿锁
 AQStAc -> NFTAc: AQS自己的tryAcquire()只是throw了UnsupportedOperationException,这是模板模式
 NFTAc  -> NFNFTAc: 调用
 note right
