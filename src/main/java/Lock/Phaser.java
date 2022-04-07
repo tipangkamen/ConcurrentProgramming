@@ -1,3 +1,5 @@
+package Lock;
+
 import java.util.Random;
 
 public class Phaser {
@@ -16,7 +18,6 @@ public class Phaser {
 
 
     }
-
 
     static class MarriagePhaser extends java.util.concurrent.Phaser {
         @Override

@@ -1,4 +1,4 @@
-
+package ProblemTest;
 
 public class Pro1 {
     private static final Object resourceA =new Object();

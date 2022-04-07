@@ -1,3 +1,5 @@
+package ProblemTest;
+
 public class Pro6 {
     private String str = "a";
 

@@ -1,3 +1,4 @@
+package ProblemTest;
 
 public class Pro2 {
     static Object object = new Object();

@@ -1,3 +1,4 @@
+package Method;
 
 public class yield {
     public static void main(String[] args) {
