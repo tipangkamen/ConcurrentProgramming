@@ -1,3 +1,5 @@
+package Lock;
+
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ReentrantLockFair extends Thread{

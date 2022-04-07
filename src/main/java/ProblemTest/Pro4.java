@@ -1,3 +1,5 @@
+package ProblemTest;
+
 public class Pro4 {
     static Object object = new Object();
     public static void main(String[] args) throws InterruptedException {
