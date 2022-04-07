@@ -3,6 +3,8 @@ package Reference;
 
 import java.io.IOException;
 import java.lang.ref.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.LockSupport;
@@ -98,6 +100,11 @@ class PhantomReferenceTest {
         }).start();
 
         Thread.sleep(500);
+
+        char[] chars = new char[2];
+
+
+
 
     }
 }
