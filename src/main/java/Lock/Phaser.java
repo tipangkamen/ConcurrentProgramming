@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Phaser {
     static Random r = new Random();
-    private static MarriagePhaser phaser=new MarriagePhaser();
+    private static final MarriagePhaser phaser=new MarriagePhaser();
     public static void main(String[] args) {
         phaser.bulkRegister(7);
 

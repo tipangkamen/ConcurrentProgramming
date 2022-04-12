@@ -1,7 +1,7 @@
 package ProblemTest;
 
 public class Pro6 {
-    private String str = "a";
+    private final String str = "a";
 
     public void lock() {
         System.out.println("进来了");
@@ -30,7 +30,7 @@ public class Pro6 {
 }
 
 class strSync {
-    private String str2 = new String("a");
+    private final String str2 = "a";
 
     public void lock() {
         System.out.println("进来了2");

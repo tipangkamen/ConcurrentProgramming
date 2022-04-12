@@ -25,7 +25,7 @@ public class ReentrantLockTest2 {
     }
 
 
-    private Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock();
 
     public void doBussiness() {
         String name = Thread.currentThread().getName();

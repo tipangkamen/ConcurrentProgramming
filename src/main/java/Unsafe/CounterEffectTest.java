@@ -140,7 +140,7 @@ class AtomicCounter implements Counter {
 }
 
 class CASCounter implements Counter {
-    private volatile long counter = 0;
+    private final long counter = 0;
     private Unsafe unsafe;
     private final long offset;
 
@@ -156,7 +156,7 @@ class CASCounter implements Counter {
     *   但是这两种构造器最后累加所花费时间都很长  atomicCounter 花费 1992 ,而CASCounter要 13116 原因还不知道
     * */
     public CASCounter() throws Exception {
-        unsafe = unsafe.getUnsafe();
+        unsafe = Unsafe.getUnsafe();
         offset = unsafe.objectFieldOffset(CASCounter.class.getDeclaredField("counter"));
     }
 

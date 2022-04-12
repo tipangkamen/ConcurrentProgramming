@@ -6,8 +6,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ReadWriteLockTest {
-    private static ReentrantLock reentrantLock = new ReentrantLock();
-    private static ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    private static final ReentrantLock reentrantLock = new ReentrantLock();
+    private static final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
     public static void main(String[] args) {
         Thread[] reentrantLockS = new Thread[20];

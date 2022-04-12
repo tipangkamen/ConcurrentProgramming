@@ -3,7 +3,7 @@ package Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ReentrantLockTest {
-    private   ReentrantLock reentrantLock = new ReentrantLock();
+    private final ReentrantLock reentrantLock = new ReentrantLock();
     public static void main(String[] args) {
         ReentrantLockTest reentrantLockTest = new ReentrantLockTest();
         new Thread(reentrantLockTest::t1).start();
